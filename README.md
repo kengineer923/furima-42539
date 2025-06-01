@@ -31,6 +31,10 @@
 ### Association
 - belongs_to :users
 - has_one :transactions
+- belong_to_active_has :categories
+- belong_to_active_has :conditions
+- belong_to_active_has :shipping_payers
+- belong_to_active_has :prefectures
 
 ## transactions テーブル
 | Column           | Type       | Options     |
@@ -58,6 +62,7 @@
 ### Association
 - belongs_to :users
 - has_many :transactions
+- belong_to_active_has :prefectures
 
 ## paymentsテーブル
 | Column         | Type       | Options     |
