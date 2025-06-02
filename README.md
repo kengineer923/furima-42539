@@ -63,5 +63,5 @@
 | order         | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :orders
+- belongs_to :order
 - has_one_active_hash :prefecture
