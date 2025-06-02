@@ -15,7 +15,7 @@
 
 ### Association
 - has_many :items
-- has_many :transactions
+- has_many :orders
 
 
 ## items テーブル
@@ -33,14 +33,14 @@
 
 ### Association
 - belongs_to :user
-- has_one :transactions
+- has_one :transaction
 - has_one_active_hash :category
 - has_one_active_hash :condition
 - has_one_active_hash :shipping_payer
 - has_one_active_hash :duration
 - has_one_active_hash :prefecture
 
-## transactions テーブル
+## orders テーブル
 | Column      | Type       | Options     |
 | ----------- | ---------- | ----------- |
 | item        | references | null: false, foreign_key: true |
@@ -49,6 +49,7 @@
 ### Association
 - belongs_to :user
 - belongs_to :item
+- has_one :address
 
 ## addressesテーブル
 | Column        | Type       | Options     |
@@ -56,23 +57,11 @@
 | postal_code   | string     | null: false |
 | prefecture_id | integer    | null: false |
 | city          | string     | null: false |
-| street        | text       | null: false |
-| building      | text       | null: true  |
+| street        | string     | null: false |
+| building      | string     |             |
 | phone_num     | integer    | null: false |
-| transaction   | references | null: false, foreign_key: true |
+| order         | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :transaction
+- belongs_to :orders
 - has_one_active_hash :prefecture
-
-## paymentsテーブル
-| Column         | Type       | Options     |
-| -------------- | ---------- | ----------- |
-| payment_method | string     | null: false |
-| card_num       | string     | null: false |
-| transaction    | references | null: false, foreign_key: true |
-| user           | references | null: false, foreign_key: true |
-
-### Association
-- belongs_to :transaction
-- belongs_to :user
