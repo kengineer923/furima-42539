@@ -33,7 +33,7 @@
 
 ### Association
 - belongs_to :user
-- has_one :transaction
+- has_one :order
 - has_one_active_hash :category
 - has_one_active_hash :condition
 - has_one_active_hash :shipping_payer
@@ -59,7 +59,7 @@
 | city          | string     | null: false |
 | street        | string     | null: false |
 | building      | string     |             |
-| phone_num     | integer    | null: false |
+| phone_num     | string    | null: false |
 | order         | references | null: false, foreign_key: true |
 
 ### Association
