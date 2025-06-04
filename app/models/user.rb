@@ -7,9 +7,6 @@ class User < ApplicationRecord
   # バリデーションを追加
   validates :nickname, :last_name, :first_name, :last_kana, :first_kana, :birthday, presence: true
 
-  # メールアドレスのバリデーション
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP, message: 'は正しい形式で入力してください' }
-
   # パスワードのバリデーション
   validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: 'は半角英数字を両方含む必要があります' }, allow_nil: true
 
