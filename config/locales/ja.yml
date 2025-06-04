@@ -1,0 +1,39 @@
+ja:
+  activerecord:
+    models:
+      user: "ユーザー"
+    attributes:
+      user:
+        nickname: "ニックネーム"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード確認"
+        first_name: "名"
+        last_name: "姓"
+        first_kana: "名（カタカナ）"
+        last_kana: "姓（カタカナ）"
+        birthday: "生年月日"
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      blank: "を入力してください"
+      invalid: "は不正な値です"
+      too_short: "は%{count}文字以上で入力してください"
+      too_long: "は%{count}文字以内で入力してください"
+      wrong_length: "は%{count}文字で入力してください"
+      not_a_number: "は数値で入力してください"
+      greater_than: "は%{count}より大きい値にしてください"
+      greater_than_or_equal_to: "は%{count}以上の値にしてください"
+      equal_to: "は%{count}にしてください"
+      less_than: "は%{count}より小さい値にしてください"
+      less_than_or_equal_to: "は%{count}以下の値にしてください"
+      other_than: "は%{count}以外の値にしてください"
+      taken: "はすでに存在します"
+      confirmation: "が一致しません"
+      accepted: "を受け入れてください"
+      present: "は存在しないことが必要です"
+      odd: "は奇数でなければなりません"
+      even: "は偶数でなければなりません"
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"

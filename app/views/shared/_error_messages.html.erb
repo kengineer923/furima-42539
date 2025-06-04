@@ -1,0 +1,14 @@
+<% if model.errors.any? %>
+<div class="error-alert">
+  <ul>
+    <% model.errors.messages.each do |attribute, messages| %>
+      <% next if attribute == :base %>
+      <% if messages.include?(I18n.t('errors.messages.blank')) %>
+        <li class='error-message'><%= model.class.human_attribute_name(attribute) %> <%= I18n.t('errors.messages.blank') %></li>
+      <% else %>
+        <li class='error-message'><%= model.class.human_attribute_name(attribute) %> <%= messages.first %></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+<% end %>
