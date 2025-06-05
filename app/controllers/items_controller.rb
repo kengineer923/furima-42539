@@ -8,12 +8,19 @@ class ItemsController < ApplicationController
   end
 
   def new
-    @item = Item.new
-    @categories = Category.all
-    @conditions = Condition.all
-    @shipping_payers = ShippingPayer.all
-    @durations = Duration.all
-    @prefectures = Prefecture.all
+    if session[:item_params]
+      @item = Item.new(session[:item_params])
+      # エラー情報も復元
+      session[:item_errors]&.each do |attr, messages|
+        messages.each do |msg|
+          @item.errors.add(attr, msg)
+        end
+      end
+      session.delete(:item_params)
+      session.delete(:item_errors)
+    else
+      @item = Item.new
+    end
   end
 
   def create
@@ -22,7 +29,10 @@ class ItemsController < ApplicationController
     if @item.save
       redirect_to root_path
     else
-      render :new
+      # 入力値・エラーをセッションに保存してリダイレクト
+      session[:item_params] = item_params.to_h
+      session[:item_errors] = @item.errors.messages
+      redirect_to new_item_path
     end
   end
 
@@ -31,22 +41,13 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @categories = Category.all
-    @conditions = Condition.all
-    @shipping_payers = ShippingPayer.all
-    @durations = Duration.all
-    @prefectures = Prefecture.all
+    set_item
   end
 
   def update
     if @item.update(item_params)
       redirect_to item_path(@item)
     else
-      @categories = Category.all
-      @conditions = Condition.all
-      @shipping_payers = ShippingPayer.all
-      @durations = Duration.all
-      @prefectures = Prefecture.all
       render :edit
     end
   end
@@ -59,7 +60,8 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :price, :category_id, :condition_id, :shipping_payer_id, :duration_id, :prefecture_id, :image)
+    params.require(:item).permit(:name, :description, :price, :category_id, :condition_id, :shipping_payer_id, :duration_id,
+                                 :prefecture_id, :image)
   end
 
   def set_item

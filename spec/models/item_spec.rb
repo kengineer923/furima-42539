@@ -39,27 +39,27 @@ RSpec.describe Item, type: :model do
       it 'カテゴリーが---（id:1）では出品できない' do
         @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("カテゴリー は1以外の値にしてください")
+        expect(@item.errors.full_messages).to include('カテゴリー を選択してください')
       end
       it '商品の状態が---（id:1）では出品できない' do
         @item.condition_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("商品の状態 は1以外の値にしてください")
+        expect(@item.errors.full_messages).to include('商品の状態 を選択してください')
       end
       it '配送料の負担が---（id:1）では出品できない' do
         @item.shipping_payer_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("配送料の負担 は1以外の値にしてください")
+        expect(@item.errors.full_messages).to include('配送料の負担 を選択してください')
       end
       it '発送元の地域が---（id:1）では出品できない' do
         @item.prefecture_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("発送元の地域 は1以外の値にしてください")
+        expect(@item.errors.full_messages).to include('発送元の地域 を選択してください')
       end
       it '発送までの日数が---（id:1）では出品できない' do
         @item.duration_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("発送までの日数 は1以外の値にしてください")
+        expect(@item.errors.full_messages).to include('発送までの日数 を選択してください')
       end
       it '価格が空では出品できない' do
         @item.price = nil

@@ -1,12 +1,15 @@
 <% if model.errors.any? %>
 <div class="error-alert">
   <ul>
-    <% model.errors.messages.each do |attribute, messages| %>
+    <% model.errors.details.each do |attribute, details| %>
       <% next if attribute == :base %>
-      <% if messages.include?(I18n.t('errors.messages.blank')) %>
-        <li class='error-message'><%= model.class.human_attribute_name(attribute) %> <%= I18n.t('errors.messages.blank') %></li>
+      <% if details.any? { |d| d[:error] == :blank } %>
+        <li class='error-message'><%= model.class.human_attribute_name(attribute) %> を入力してください</li>
       <% else %>
-        <li class='error-message'><%= model.class.human_attribute_name(attribute) %> <%= messages.first %></li>
+        <% msg = model.errors.full_messages_for(attribute).first %>
+        <% if msg.present? %>
+          <li class='error-message'><%= msg %></li>
+        <% end %>
       <% end %>
     <% end %>
   </ul>
