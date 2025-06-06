@@ -8,7 +8,5 @@ class AddNotNullConstraintToItems < ActiveRecord::Migration[6.0]
     change_column_null :items, :shipping_payer_id, false
     change_column_null :items, :duration_id, false
     change_column_null :items, :prefecture_id, false
-    change_column_null :items, :user_id, false
-    # imageはActiveStorageなのでDBカラムではない
   end
 end

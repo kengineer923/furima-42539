@@ -9,19 +9,20 @@ class ItemsController < ApplicationController
   # end
 
   def new
-    if session[:item_params]
-      @item = Item.new(session[:item_params])
-      # エラー情報も復元
-      session[:item_errors]&.each do |attr, messages|
-        messages.each do |msg|
-          @item.errors.add(attr, msg)
-        end
-      end
-      session.delete(:item_params)
-      session.delete(:item_errors)
-    else
-      @item = Item.new
-    end
+    @item = Item.new
+    # if session[:item_params]
+    #   @item = Item.new(session[:item_params])
+    #   # エラー情報も復元
+    #   session[:item_errors]&.each do |attr, messages|
+    #     messages.each do |msg|
+    #       @item.errors.add(attr, msg)
+    #     end
+    #   end
+    #   session.delete(:item_params)
+    #   session.delete(:item_errors)
+    # else
+    #   @item = Item.new
+    # end
   end
 
   def create
@@ -69,7 +70,7 @@ class ItemsController < ApplicationController
   #   @item = Item.find(params[:id])
   # end
 
-  def move_to_index_unless_owner
-    redirect_to root_path unless user_signed_in? && current_user == @item.user
-  end
+  # def move_to_index_unless_owner
+  #   redirect_to root_path unless user_signed_in? && current_user == @item.user
+  # end
 end
