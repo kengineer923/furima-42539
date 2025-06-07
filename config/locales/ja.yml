@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       user: "ユーザー"
+      item: "商品"
     attributes:
       user:
         nickname: "ニックネーム"
@@ -13,6 +14,16 @@ ja:
         first_kana: "名（カタカナ）"
         last_kana: "姓（カタカナ）"
         birthday: "生年月日"
+      item:
+        name: "商品名"
+        description: "商品の説明"
+        price: "価格"
+        image: "商品画像"
+        category_id: "カテゴリー"
+        condition_id: "商品の状態"
+        shipping_payer_id: "配送料の負担"
+        duration_id: "発送までの日数"
+        prefecture_id: "発送元の地域"
   errors:
     format: "%{attribute} %{message}"
     messages:

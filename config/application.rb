@@ -16,6 +16,7 @@ module Furima42539
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w(assets tasks))
+    config.autoload_paths += %W[#{config.root}/app/models/active_hash]
 
     # Configuration for the application, engines, and railties goes here.
     #
