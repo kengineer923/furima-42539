@@ -14,4 +14,9 @@ class Item < ApplicationRecord
   validates :category_id, :condition_id, :shipping_payer_id, :duration_id, :prefecture_id,
             numericality: { other_than: 1, message: 'を選択してください' }
   validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
+
+  # 売却済み商品の判定メソッド
+  # def sold_out?
+  #   order.present?
+  # end
 end

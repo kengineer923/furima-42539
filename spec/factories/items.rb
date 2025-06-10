@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :item do
-    name              { "テスト商品" }
-    description       { "テスト商品の説明です" }
+    name              { 'テスト商品' }
+    description       { 'テスト商品の説明です' }
     price             { 1000 }
     association       :user
     category_id       { 2 }
