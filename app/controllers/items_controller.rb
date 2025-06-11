@@ -44,6 +44,18 @@ class ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
+    # ここからセッションに保存された入力値を復元のための記述
+    if session[:item_edit_params]
+      @item.assign_attributes(session[:item_edit_params])
+      session[:item_edit_errors]&.each do |attr, messages|
+        messages.each do |msg|
+          @item.errors.add(attr, msg)
+        end
+      end
+      session.delete(:item_edit_params)
+      session.delete(:item_edit_errors)
+    end
+    # ここからセッションに保存された入力値を復元のための記述
   end
 
   def update
@@ -51,7 +63,9 @@ class ItemsController < ApplicationController
     if @item.update(item_params)
       redirect_to item_path(@item)
     else
-      render :edit
+      session[:item_edit_params] = item_params.to_h
+      session[:item_edit_errors] = @item.errors.messages
+      redirect_to edit_item_path(@item)
     end
   end
 
