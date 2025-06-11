@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :move_to_index, only: [:edit, :update]
+  before_action :set_item, only: [:show, :edit, :update]
 
   def index
     @items = Item.includes(:user).order(created_at: :desc)
@@ -39,11 +40,9 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def edit
-    @item = Item.find(params[:id])
     # ここからセッションに保存された入力値を復元のための記述
     return unless session[:item_edit_params]
 
@@ -55,12 +54,11 @@ class ItemsController < ApplicationController
     end
     session.delete(:item_edit_params)
     session.delete(:item_edit_errors)
-
-    # ここからセッションに保存された入力値を復元のための記述
+    # ここまでセッションに保存された入力値を復元のための記述
   end
 
   def update
-    @item = Item.find(params[:id])
+    # ここからセッションに保存された入力値を復元のための記述
     if @item.update(item_params)
       redirect_to item_path(@item)
     else
@@ -68,6 +66,7 @@ class ItemsController < ApplicationController
       session[:item_edit_errors] = @item.errors.messages
       redirect_to edit_item_path(@item)
     end
+    # ここまでセッションに保存された入力値を復元のための記述
   end
 
   private
@@ -77,6 +76,10 @@ class ItemsController < ApplicationController
     return if current_user == @item.user
 
     redirect_to root_path
+  end
+
+  def set_item
+    @item = Item.find(params[:id])
   end
 
   def item_params
