@@ -45,16 +45,17 @@ class ItemsController < ApplicationController
   def edit
     @item = Item.find(params[:id])
     # ここからセッションに保存された入力値を復元のための記述
-    if session[:item_edit_params]
-      @item.assign_attributes(session[:item_edit_params])
-      session[:item_edit_errors]&.each do |attr, messages|
-        messages.each do |msg|
-          @item.errors.add(attr, msg)
-        end
+    return unless session[:item_edit_params]
+
+    @item.assign_attributes(session[:item_edit_params])
+    session[:item_edit_errors]&.each do |attr, messages|
+      messages.each do |msg|
+        @item.errors.add(attr, msg)
       end
-      session.delete(:item_edit_params)
-      session.delete(:item_edit_errors)
     end
+    session.delete(:item_edit_params)
+    session.delete(:item_edit_errors)
+
     # ここからセッションに保存された入力値を復元のための記述
   end
 
@@ -73,9 +74,9 @@ class ItemsController < ApplicationController
 
   def move_to_index
     @item = Item.find(params[:id])
-    unless current_user == @item.user
-      redirect_to root_path
-    end
+    return if current_user == @item.user
+
+    redirect_to root_path
   end
 
   def item_params
