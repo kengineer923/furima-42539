@@ -5,8 +5,10 @@ RSpec.describe OrderAddress, type: :model do
   describe '購入情報の保存' do
     let(:user) { FactoryBot.create(:user) }
     let(:item) { FactoryBot.create(:item, user: FactoryBot.create(:user)) }
-    let(:order_address) { FactoryBot.build(:order_address, user_id: user.id, item_id: item.id, token: "tok_abcdefghijk00000000000000000") } # テスト用のトークンを追加
-
+    # テスト用のトークンを追加
+    let(:order_address) do
+      FactoryBot.build(:order_address, user_id: user.id, item_id: item.id, token: 'tok_abcdefghijk00000000000000000')
+    end
     before do
     end
 
@@ -37,7 +39,7 @@ RSpec.describe OrderAddress, type: :model do
       it 'tokenが空では登録できないこと' do
         order_address.token = nil
         order_address.valid?
-        expect(order_address.errors.full_messages).to include("クレジットカード情報 を入力してください")
+        expect(order_address.errors.full_messages).to include('クレジットカード情報 を入力してください')
       end
 
       it 'user_idが空では登録できないこと' do
@@ -60,12 +62,12 @@ RSpec.describe OrderAddress, type: :model do
       it 'postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと (ハイフンなし)' do
         order_address.postal_code = '1234567' # ハイフンなし
         order_address.valid?
-        expect(order_address.errors.full_messages).to include("郵便番号 is invalid. Include hyphen(-)")
+        expect(order_address.errors.full_messages).to include('郵便番号 is invalid. Include hyphen(-)')
       end
       it 'postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと (全角)' do
         order_address.postal_code = '１２３－４５６７' # 全角ハイフンと数字
         order_address.valid?
-        expect(order_address.errors.full_messages).to include("郵便番号 is invalid. Include hyphen(-)")
+        expect(order_address.errors.full_messages).to include('郵便番号 is invalid. Include hyphen(-)')
       end
 
       it 'prefecture_idが1では保存できない' do
@@ -83,7 +85,7 @@ RSpec.describe OrderAddress, type: :model do
       it 'addressが空だと保存できないこと' do
         order_address.address = ''
         order_address.valid?
-        expect(order_address.errors.full_messages).to include("番地 を入力してください")
+        expect(order_address.errors.full_messages).to include('番地 を入力してください')
       end
 
       it 'phone_numberが空だと保存できないこと' do
@@ -94,22 +96,22 @@ RSpec.describe OrderAddress, type: :model do
       it 'phone_numberが9桁だと保存できないこと' do
         order_address.phone_number = '090123456'
         order_address.valid?
-        expect(order_address.errors.full_messages).to include("電話番号 is invalid.")
+        expect(order_address.errors.full_messages).to include('電話番号 is invalid.')
       end
       it 'phone_numberが12桁だと保存できないこと' do
         order_address.phone_number = '090123456789'
         order_address.valid?
-        expect(order_address.errors.full_messages).to include("電話番号 is invalid.")
+        expect(order_address.errors.full_messages).to include('電話番号 is invalid.')
       end
       it 'phone_numberにハイフンが含まれていると保存できないこと' do
         order_address.phone_number = '090-1234-5678'
         order_address.valid?
-        expect(order_address.errors.full_messages).to include("電話番号 is invalid.")
+        expect(order_address.errors.full_messages).to include('電話番号 is invalid.')
       end
       it 'phone_numberが全角数字だと保存できないこと' do
         order_address.phone_number = '０９０１２３４５６７８'
         order_address.valid?
-        expect(order_address.errors.full_messages).to include("電話番号 is invalid.")
+        expect(order_address.errors.full_messages).to include('電話番号 is invalid.')
       end
 
       context 'saveメソッド呼び出し時' do
