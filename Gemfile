@@ -51,6 +51,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rubocop', '1.71.2', require: false
+  gem 'database_cleaner-active_record'
 end
 
 group :development do

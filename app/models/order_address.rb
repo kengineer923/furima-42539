@@ -22,6 +22,8 @@ class OrderAddress
   end
 
   def save
+    return false unless valid?
+
     order = Order.new(user_id: user_id, item_id: item_id)
     unless order.save
       return false

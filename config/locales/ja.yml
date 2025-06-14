@@ -33,6 +33,8 @@ ja:
         building: "建物名"
         phone_number: "電話番号"
         token: "クレジットカード情報"
+        user_id: "ユーザー"
+        item_id: "商品"
   errors:
     format: "%{attribute} %{message}"
     messages:
