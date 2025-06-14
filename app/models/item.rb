@@ -16,7 +16,7 @@ class Item < ApplicationRecord
   validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
 
   # 売却済み商品の判定メソッド
-  # def sold_out?
-  #   order.present?
-  # end
+  def sold_out?
+    order.present?
+  end
 end

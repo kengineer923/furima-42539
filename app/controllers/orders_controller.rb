@@ -11,11 +11,17 @@ class OrdersController < ApplicationController
   def create
     @order_address = OrderAddress.new(order_address_params)
     if @order_address.valid?
-      # PAY.JP支払い処理はSTEP2で実装
-      @order_address.save
-      return redirect_to root_path
+      pay_item
+      if @order_address.save
+        return redirect_to root_path
+      else
+        gon.public_key = ENV['PAYJP_PUBLIC_KEY']
+        @order_address.errors.delete(:token)
+        render :index, status: :unprocessable_entity and return
+      end
     else
       gon.public_key = ENV['PAYJP_PUBLIC_KEY']
+      @order_address.errors.delete(:token)
       render :index, status: :unprocessable_entity
     end
   end
@@ -24,7 +30,7 @@ class OrdersController < ApplicationController
 
   def order_address_params
     params.require(:order_address).permit(
-      :postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number
+      :postal_code, :prefecture_id, :city, :address, :building, :phone_number
     ).merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
   end
 
@@ -36,5 +42,14 @@ class OrdersController < ApplicationController
     if @item.order.present? || current_user.id == @item.user_id
       redirect_to root_path
     end
+  end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: order_address_params[:token],
+      currency: 'jpy'
+    )
   end
 end

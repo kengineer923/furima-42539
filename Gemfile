@@ -71,10 +71,6 @@ group :test do
   gem "selenium-webdriver"
 end
 
-group :development do
-  gem 'rubocop', '1.71.2', require: false
-end
-
 gem 'devise'
 gem 'rails-i18n'
 gem 'mini_magick'
