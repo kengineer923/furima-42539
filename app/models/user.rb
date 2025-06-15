@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :orders
+  has_many :items
 
   # バリデーションを追加
   validates :nickname, :last_name, :first_name, :last_kana, :first_kana, :birthday, presence: true
