@@ -16,12 +16,10 @@ class OrdersController < ApplicationController
         return redirect_to root_path
       else
         gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-        @order_address.errors.delete(:token)
         render :index, status: :unprocessable_entity and return
       end
     else
       gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-      @order_address.errors.delete(:token)
       render :index, status: :unprocessable_entity
     end
   end
