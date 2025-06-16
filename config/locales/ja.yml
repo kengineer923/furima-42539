@@ -3,6 +3,7 @@ ja:
     models:
       user: "ユーザー"
       item: "商品"
+      order_address: "注文住所"
     attributes:
       user:
         nickname: "ニックネーム"
@@ -24,6 +25,16 @@ ja:
         shipping_payer_id: "配送料の負担"
         duration_id: "発送までの日数"
         prefecture_id: "発送元の地域"
+      order_address:
+        postal_code: "郵便番号"
+        prefecture_id: "都道府県"
+        city: "市区町村"
+        address: "番地"
+        building: "建物名"
+        phone_number: "電話番号"
+        token: "クレジットカード情報"
+        user_id: "ユーザー"
+        item_id: "商品"
   errors:
     format: "%{attribute} %{message}"
     messages:

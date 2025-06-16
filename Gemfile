@@ -51,6 +51,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rubocop', '1.71.2', require: false
+  gem 'database_cleaner-active_record'
 end
 
 group :development do
@@ -71,12 +72,10 @@ group :test do
   gem "selenium-webdriver"
 end
 
-group :development do
-  gem 'rubocop', '1.71.2', require: false
-end
-
 gem 'devise'
 gem 'rails-i18n'
 gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
 gem 'active_hash'
+gem 'gon'
+gem 'payjp'
